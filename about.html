@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Stackly Water Technology</title>
+  <meta name="description" content="Learn about Stackly's engineering history, environmental mission, ISO-certified laboratory, and leadership team pioneering closed-loop liquid recovery.">
+  <link rel="icon" type="image/webp" href="assets/logo.webp">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- Custom Cursor Canvas -->
+  <canvas id="cursor-canvas"></canvas>
+
+  <!-- Preloader Screen -->
+  <div id="site-preloader" class="site-preloader">
+    <div class="preloader-droplet-wrapper">
+      <div class="preloader-droplet"></div>
+      <div class="preloader-pool"></div>
+      <div class="preloader-ripple"></div>
+    </div>
+    <div class="preloader-logo">Stack<span>ly</span></div>
+    <div class="preloader-bar"><span></span></div>
+  </div>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-info">
+        <span><i class="fa-solid fa-location-dot"></i> Tech Park Phase II, Bangalore, KA - 560066</span>
+        <span><i class="fa-solid fa-phone"></i> +91 80 4567 8900</span>
+        <span><i class="fa-solid fa-clock"></i> Support: 24/7 Telemetry Monitoring</span>
+      </div>
+      <div class="top-bar-links">
+        <a href="404.html" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="404.html" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="404.html" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="container navbar-bar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/logo.webp" alt="Stackly Logo">
+      </a>
+
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-panel">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="nav-panel" id="nav-panel">
+        <div class="nav-panel-header">
+          <a href="index.html" class="brand-logo">
+            <img src="assets/logo.webp" alt="Stackly Logo">
+          </a>
+          <button type="button" class="nav-close" id="nav-close" aria-label="Close menu">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link active">About Us</a></li>
+          <li><a href="services.html" class="nav-link">Solutions</a></li>
+          <li><a href="research.html" class="nav-link">Research</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn btn-secondary btn-sm" style="border: 1.5px solid var(--primary); padding: 8px 18px;">Login</a>
+          <a href="create-account.html" class="btn btn-primary btn-sm" style="padding: 8px 18px;">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" style="min-height: auto; padding: 60px 0 80px 0;">
+    <canvas id="hero-bg-canvas" class="hero-bg-canvas"></canvas>
+    <div class="container" style="position: relative; z-index: 2; text-align: center;">
+      <span class="section-tag" style="background: rgba(255,255,255,0.1); color: var(--secondary);"><i class="fa-solid fa-building"></i> Company Profile</span>
+      <h1 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.5rem); margin-bottom: 12px;">Pioneering Liquid Optimization</h1>
+      <p class="hero-desc" style="margin-inline: auto; font-size: 1.05rem; max-width: 700px;">Providing state-of-the-art modular treatment skids and cloud infrastructure to eliminate liquid waste globally.</p>
+    </div>
+  </section>
+
+  <!-- About split detail -->
+  <section class="section">
+    <div class="container about-split-grid">
+      <div class="about-split-visual reveal-left">
+        <img src="assets/filtration_11zon.webp" alt="Industrial reverse osmosis membranes" class="about-image-main">
+        <img src="assets/dashboard_11zon.webp" alt="IoT water grid metrics" class="about-image-sub" style="bottom: -20px;">
+      </div>
+
+      <div class="about-split-content reveal-right">
+        <span class="section-tag"><i class="fa-solid fa-droplet"></i> Our History</span>
+        <h2 class="section-title">A Decade of Fluid Dynamics Research</h2>
+        <p class="section-desc">Founded in 2016, Stackly started as an research group at Bangalore’s leading science institute. We recognized that standard industrial filtration was treated as an unmonitored utility, resulting in massive liquid waste and chemical overheads. By merging high-density RO membranes with automated IoT telemetry, we created plug-and-play recovery grids that make water circularity cost-effective.</p>
+        
+        <ul class="about-bullets" style="margin-bottom: 0;">
+          <li><i class="fa-solid fa-circle-check"></i> Modular structures easily adapted to space limits.</li>
+          <li><i class="fa-solid fa-circle-check"></i> Custom-compiled membranes resistant to organic fouling.</li>
+          <li><i class="fa-solid fa-circle-check"></i> Automated chemical dosing adjusted dynamically by IoT sensors.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Laboratory & Certifications -->
+  <section class="section section-dark">
+    <div class="wave-divider-top" aria-hidden="true">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,42.4V0Z" class="shape-fill"></path>
+      </svg>
+    </div>
+
+    <div class="container" style="padding-top: 40px;">
+      <div class="section-header reveal">
+        <span class="section-tag"><i class="fa-solid fa-flask-vial"></i> Quality Standards</span>
+        <h2 class="section-title">ISO-Certified Laboratory Facilities</h2>
+        <p class="section-desc">Every membrane module we assemble and water flow system we design is validated through strict testing at our advanced laboratory facility.</p>
+      </div>
+
+      <div class="about-features">
+        <div class="about-feature-card reveal delay-100">
+          <i class="fa-solid fa-circle-nodes"></i>
+          <h4>ANSI/NSF Standards</h4>
+          <p>Validated membrane structures meeting NSF 58 and 61 requirements for material safety and chemical reduction.</p>
+        </div>
+
+        <div class="about-feature-card reveal delay-200">
+          <i class="fa-solid fa-vials"></i>
+          <h4>Heavy Metal Assay</h4>
+          <p>ICP-MS trace testing tracking Lead, Arsenic, Cadmium, and organic complexes to parts-per-billion levels.</p>
+        </div>
+
+        <div class="about-feature-card reveal delay-300">
+          <i class="fa-solid fa-shield-virus"></i>
+          <h4>Bio-Contamination</h4>
+          <p>Microbiology testing ensuring 99.9999% reduction of coliform and bacterial pathogens through UV calibration.</p>
+        </div>
+
+        <div class="about-feature-card reveal delay-400">
+          <i class="fa-solid fa-microchip"></i>
+          <h4>IoT Sensor Validation</h4>
+          <p>Stress-testing telemetry electronics to confirm signal durability, water sealing, and accurate calibration levels.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Members Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag"><i class="fa-solid fa-users"></i> Our Team</span>
+        <h2 class="section-title">The Fluid Dynamics & Cloud Engineers</h2>
+        <p class="section-desc">Meet the specialists driving sustainable water innovation and real-time automation.</p>
+      </div>
+
+      <div class="team-grid">
+        <!-- Team Card 1 -->
+        <div class="team-card reveal delay-100">
+          <div class="team-img-box">
+            <img src="assets/team_elena_11zon.webp" alt="Dr. Elena Rostova - environmental engineer placeholder">
+            <div class="team-socials-overlay">
+              <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="404.html"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+          </div>
+          <div class="team-info">
+            <h4 class="team-name">Dr. Elena Rostova</h4>
+            <span class="team-role">Chief Environmental Officer</span>
+          </div>
+        </div>
+
+        <!-- Team Card 2 -->
+        <div class="team-card reveal delay-200">
+          <div class="team-img-box">
+            <img src="assets/team_vikram_11zon.webp" alt="Vikram Malhotra - membrane designer placeholder">
+            <div class="team-socials-overlay">
+              <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="404.html"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+          </div>
+          <div class="team-info">
+            <h4 class="team-name">Vikram Malhotra</h4>
+            <span class="team-role">VP Membrane Systems</span>
+          </div>
+        </div>
+
+        <!-- Team Card 3 -->
+        <div class="team-card reveal delay-300">
+          <div class="team-img-box">
+            <img src="assets/team_sarah_11zon.webp" alt="Sarah Lin - Chief IoT Architect placeholder">
+            <div class="team-socials-overlay">
+              <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="404.html"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+          </div>
+          <div class="team-info">
+            <h4 class="team-name">Sarah Lin</h4>
+            <span class="team-role">Chief IoT Architect</span>
+          </div>
+        </div>
+
+        <!-- Team Card 4 -->
+        <div class="team-card reveal delay-400">
+          <div class="team-img-box">
+            <img src="assets/team_arjun_11zon.webp" alt="Arjun Patel - Telemetry lead placeholder">
+            <div class="team-socials-overlay">
+              <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="404.html"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+          </div>
+          <div class="team-info">
+            <h4 class="team-name">Arjun Patel</h4>
+            <span class="team-role">Lead Diagnostics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 20px;">
+            <img src="assets/logo.webp" alt="Stackly logo">
+          </a>
+          <p>Engineering sustainable closed-loop filtration grids and dynamic cloud telemetry systems to secure industrial water circularity.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Link</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Solutions Grid</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Office Hours</h4>
+          <div class="footer-hours-list">
+            <div class="footer-hours-row">
+              <span>Mon - Fri</span>
+              <span>09:00 - 18:00</span>
+            </div>
+            <div class="footer-hours-row">
+              <span>Saturday</span>
+              <span>10:00 - 15:00</span>
+            </div>
+            <div class="footer-hours-row">
+              <span>Diagnostics</span>
+              <span>24/7 Connected</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-col footer-newsletter">
+          <h4>Tech Updates</h4>
+          <p>Subscribe to our engineering reports for updates on zero-discharge filtration standards.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your work email..." required>
+            <button type="submit"><i class="fa-solid fa-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Stackly Technologies Private Limited. All Rights Reserved.</p>
+        <div class="footer-social-links">
+          <a href="404.html"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="404.html"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solutions | Stackly Water Technology</title>
+  <meta name="description" content="Discover Stackly's high-tech industrial filtration, real-time IoT grid monitoring, and zero-liquid-discharge (ZLD) systems configured for global infrastructure.">
+  <link rel="icon" type="image/webp" href="assets/logo.webp">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- Custom Cursor Canvas -->
+  <canvas id="cursor-canvas"></canvas>
+
+  <!-- Preloader Screen -->
+  <div id="site-preloader" class="site-preloader">
+    <div class="preloader-droplet-wrapper">
+      <div class="preloader-droplet"></div>
+      <div class="preloader-pool"></div>
+      <div class="preloader-ripple"></div>
+    </div>
+    <div class="preloader-logo">Stack<span>ly</span></div>
+    <div class="preloader-bar"><span></span></div>
+  </div>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-info">
+        <span><i class="fa-solid fa-location-dot"></i> Tech Park Phase II, Bangalore, KA - 560066</span>
+        <span><i class="fa-solid fa-phone"></i> +91 80 4567 8900</span>
+        <span><i class="fa-solid fa-clock"></i> Support: 24/7 Telemetry Monitoring</span>
+      </div>
+      <div class="top-bar-links">
+        <a href="404.html" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="404.html" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="404.html" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="container navbar-bar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/logo.webp" alt="Stackly Logo">
+      </a>
+
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-panel">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="nav-panel" id="nav-panel">
+        <div class="nav-panel-header">
+          <a href="index.html" class="brand-logo">
+            <img src="assets/logo.webp" alt="Stackly Logo">
+          </a>
+          <button type="button" class="nav-close" id="nav-close" aria-label="Close menu">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="services.html" class="nav-link active">Solutions</a></li>
+          <li><a href="research.html" class="nav-link">Research</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn btn-secondary btn-sm" style="border: 1.5px solid var(--primary); padding: 8px 18px;">Login</a>
+          <a href="create-account.html" class="btn btn-primary btn-sm" style="padding: 8px 18px;">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" style="min-height: auto; padding: 60px 0 80px 0;">
+    <canvas id="hero-bg-canvas" class="hero-bg-canvas"></canvas>
+    <div class="container" style="position: relative; z-index: 2; text-align: center;">
+      <span class="section-tag" style="background: rgba(255,255,255,0.1); color: var(--secondary);"><i class="fa-solid fa-gears"></i> Technical Catalog</span>
+      <h1 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.5rem); margin-bottom: 12px;">Advanced Water Infrastructure Solutions</h1>
+      <p class="hero-desc" style="margin-inline: auto; font-size: 1.05rem; max-width: 700px;">Explore the mechanical and digital specs powering our industrial closed-loop filtration platforms.</p>
+    </div>
+  </section>
+
+  <!-- Services Detail Showcase List -->
+  <section class="section">
+    <div class="container">
+      
+      <!-- Showcase 1: Industrial RO -->
+      <div class="services-showcase-grid reveal" id="industrial">
+        <div class="services-showcase-content">
+          <span class="section-tag"><i class="fa-solid fa-industry"></i> Zero Liquid Discharge</span>
+          <h2 class="section-title">Industrial Reverse Osmosis (RO) Platforms</h2>
+          <p>Our heavy-duty modular containerized RO skids are built to process highly saline wastewater, brackish water, or heavy chemicals. Each unit features composite polyamide membranes, high-efficiency pressure exchangers, and automatic anti-scaling dosing nodes to reduce waste by up to 98%.</p>
+          <ul class="services-features-list">
+            <li><i class="fa-solid fa-circle-check"></i> Standard sizes from 50k to 5M liters per day</li>
+            <li><i class="fa-solid fa-circle-check"></i> Up to 99.8% dissolved salts & chemical extraction</li>
+            <li><i class="fa-solid fa-circle-check"></i> Low-energy recovery pumps lowering electricity draw by 30%</li>
+          </ul>
+          <a href="404.html" class="btn btn-primary btn-sm" style="margin-top: 10px;">Request Specs</a>
+        </div>
+        <div class="services-showcase-visual">
+          <img src="assets/filtration_11zon.webp" alt="Industrial RO Cylinders and Pipe Systems">
+        </div>
+      </div>
+
+      <!-- Showcase 2: IoT Telemetry -->
+      <div class="services-showcase-grid reveal" id="telemetry">
+        <div class="services-showcase-content">
+          <span class="section-tag"><i class="fa-solid fa-laptop-code"></i> Live Telemetry</span>
+          <h2 class="section-title">Smart Grid Telemetry & Sensor Dashboards</h2>
+          <p>Bring full transparency to fluid processing. Our cloud telemetry gathers multi-point data across your piping infrastructure, feeding metrics to a real-time diagnostics dashboard. The controller continuously checks filter fouling, alerts technicians of pressure dropoffs, and regulates flow speeds to prevent failures.</p>
+          <ul class="services-features-list">
+            <li><i class="fa-solid fa-circle-check"></i> Modbus/LTE cellular backup telemetry connections</li>
+            <li><i class="fa-solid fa-circle-check"></i> Live sensors measuring TDS, pH, chlorine, flow, and temp</li>
+            <li><i class="fa-solid fa-circle-check"></i> AI-powered clogging forecasts preventing sudden shutdowns</li>
+          </ul>
+          <a href="404.html" class="btn btn-primary btn-sm" style="margin-top: 10px;">Request Specs</a>
+        </div>
+        <div class="services-showcase-visual">
+          <img src="assets/dashboard_11zon.webp" alt="IoT Telemetry Dashboard Interface">
+        </div>
+      </div>
+
+      <!-- Showcase 3: Laboratory -->
+      <div class="services-showcase-grid reveal" id="testing">
+        <div class="services-showcase-content">
+          <span class="section-tag"><i class="fa-solid fa-flask-vial"></i> Lab Assays</span>
+          <h2 class="section-title">Water Testing & Quality Diagnostics</h2>
+          <p>Our ISO/IEC 17025 certified testing laboratories analyze raw intake water to profile chemical contaminants, biological pathogens, and organic load. These assays let our engineers customize the membrane pore sizing, carbon density, and chemical dosing to match your specific environmental requirements.</p>
+          <ul class="services-features-list">
+            <li><i class="fa-solid fa-circle-check"></i> Full screening covering 80+ chemical and bio-markers</li>
+            <li><i class="fa-solid fa-circle-check"></i> Microplastics and trace pharmaceuticals detection</li>
+            <li><i class="fa-solid fa-circle-check"></i> Ongoing compliance reporting for local regulations</li>
+          </ul>
+          <a href="404.html" class="btn btn-primary btn-sm" style="margin-top: 10px;">Request Specs</a>
+        </div>
+        <div class="services-showcase-visual">
+          <img src="assets/lab_11zon.webp" alt="Laboratory scientist testing pure water sample">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Emergency Banner (Matches Stackly's homepage banner) -->
+  <section class="section" style="padding: 0 0 80px 0;">
+    <div class="container">
+      <div class="contact-grid reveal" style="grid-template-columns: 1fr; background: linear-gradient(135deg, var(--dark), var(--dark-surface)); color: #fff; padding: 40px 50px; border-radius: var(--radius-lg); overflow: hidden; position: relative;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px; z-index: 2;">
+          <div>
+            <h2 style="color: #fff; margin-bottom: 10px; font-size: 1.8rem;"><i class="fa-solid fa-circle-exclamation" style="color: var(--secondary); margin-right: 10px; animation: pulse-ring 2s infinite;"></i> Critical Water Contamination Event?</h2>
+            <p style="color: #cbd5e1;">Our emergency containerized mobile filtration units and diagnostics testing teams deploy within 24 hours.</p>
+          </div>
+          <div>
+            <a href="404.html" class="btn btn-accent"><i class="fa-solid fa-phone"></i> +91 80 4567 8900</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 20px;">
+            <img src="assets/logo.webp" alt="Stackly logo">
+          </a>
+          <p>Engineering sustainable closed-loop filtration grids and dynamic cloud telemetry systems to secure industrial water circularity.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Link</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Solutions Grid</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Office Hours</h4>
+          <div class="footer-hours-list">
+            <div class="footer-hours-row">
+              <span>Mon - Fri</span>
+              <span>09:00 - 18:00</span>
+            </div>
+            <div class="footer-hours-row">
+              <span>Saturday</span>
+              <span>10:00 - 15:00</span>
+            </div>
+            <div class="footer-hours-row">
+              <span>Diagnostics</span>
+              <span>24/7 Connected</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-col footer-newsletter">
+          <h4>Tech Updates</h4>
+          <p>Subscribe to our engineering reports for updates on zero-discharge filtration standards.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your work email..." required>
+            <button type="submit"><i class="fa-solid fa-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Stackly Technologies Private Limited. All Rights Reserved.</p>
+        <div class="footer-social-links">
+          <a href="404.html"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="404.html"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Started | Stackly Water Technology</title>
+  <meta name="description" content="Register your industrial site, deploy real-time sensors, and configure your plant water treatment dashboard.">
+  <link rel="icon" type="image/webp" href="assets/logo.webp">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    .auth-section {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 60px 0;
+      background: radial-gradient(circle at 10% 20%, #0e294e 0%, #03045e 100%);
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      padding: 40px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      z-index: 5;
+    }
+    .auth-logo-wrap {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .auth-logo-wrap img {
+      height: 48px;
+      width: auto;
+    }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .auth-header h2 {
+      color: #fff;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+    .auth-header p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+    .form-group-standard {
+      margin-bottom: 20px;
+      text-align: left;
+      position: relative;
+    }
+    .form-label-standard {
+      display: block;
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .form-input-standard {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      outline: none;
+      transition: var(--transition-fast);
+    }
+    .form-input-standard:focus {
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.07);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+    }
+    select.form-input-standard option {
+      background-color: #111827;
+      color: #cbd5e1;
+    }
+    .password-toggle-box {
+      position: relative;
+    }
+    .password-toggle-box .password-toggle {
+      position: absolute;
+      right: 16px;
+      top: 15px;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 1.1rem;
+      z-index: 10;
+    }
+    .password-rules {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 20px 0;
+      font-size: 0.82rem;
+      color: #94a3b8;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .password-rules li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.3s ease;
+    }
+    .password-rules li i {
+      font-size: 0.8rem;
+    }
+    .password-rules li.valid {
+      color: #2ec4b6;
+    }
+    .auth-footer-text {
+      text-align: center;
+      margin-top: 24px;
+      color: #94a3b8;
+      font-size: 0.92rem;
+    }
+    .auth-footer-text a {
+      color: var(--secondary);
+      font-weight: 700;
+    }
+    .auth-footer-text a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor Canvas -->
+  <canvas id="cursor-canvas"></canvas>
+
+  <!-- Preloader Screen -->
+  <div id="site-preloader" class="site-preloader">
+    <div class="preloader-droplet-wrapper">
+      <div class="preloader-droplet"></div>
+      <div class="preloader-pool"></div>
+      <div class="preloader-ripple"></div>
+    </div>
+    <div class="preloader-logo">Stack<span>ly</span></div>
+    <div class="preloader-bar"><span></span></div>
+  </div>
+
+  <!-- Create Account Section with Canvas Background -->
+  <section class="auth-section">
+    <canvas id="hero-bg-canvas" class="hero-bg-canvas"></canvas>
+    
+    <div class="auth-card reveal">
+      <div style="margin-bottom: 20px; text-align: left;">
+        <a href="index.html" style="color: var(--secondary); font-weight: 600; font-size: 0.92rem; display: inline-flex; align-items: center; gap: 8px;"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+      </div>
+
+      <div class="auth-logo-wrap">
+        <a href="index.html">
+          <img src="assets/logo.webp" alt="Stackly Logo">
+        </a>
+      </div>
+
+      <div class="auth-header">
+        <h2>Deploy Your Node</h2>
+        <p>Register your industrial plant access keys</p>
+      </div>
+
+      <form id="signup-form">
+        <div class="form-group-standard">
+          <label for="signup-name" class="form-label-standard">Full Name</label>
+          <input type="text" id="signup-name" class="form-input-standard" placeholder="E.g., Dr. Elena Rostova" required autocomplete="name">
+        </div>
+
+        <div class="form-group-standard">
+          <label for="signup-email" class="form-label-standard">Work Email</label>
+          <input type="email" id="signup-email" class="form-input-standard" placeholder="E.g., operator@gmail.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group-standard">
+          <label for="signup-flow" class="form-label-standard">Required Capacity</label>
+          <div style="position: relative;">
+            <select id="signup-flow" class="form-input-standard" style="appearance: none; padding-right: 40px;" required>
+              <option value="" disabled selected hidden>Select intake capacity</option>
+              <option value="micro">&lt; 50,000 Liters / day</option>
+              <option value="medium">50,000 - 500,000 Liters / day</option>
+              <option value="macro">&gt; 500,000 Liters / day</option>
+            </select>
+            <i class="fa-solid fa-chevron-down" style="position: absolute; right: 16px; top: 16px; color: #94a3b8; pointer-events: none;"></i>
+          </div>
+        </div>
+
+        <div class="form-group-standard">
+          <label for="signup-password" class="form-label-standard">Create Password</label>
+          <div class="password-toggle-box">
+            <input type="password" id="signup-password" class="form-input-standard" placeholder="Enter strong password" required autocomplete="new-password">
+            <i class="fa-solid fa-eye-slash password-toggle" id="signup-password-toggle"></i>
+          </div>
+        </div>
+
+        <!-- Real-time validation rules list -->
+        <ul class="password-rules">
+          <li id="rule-length"><i class="fa-solid fa-circle-xmark"></i> 8+ Characters</li>
+          <li id="rule-upper"><i class="fa-solid fa-circle-xmark"></i> 1 Uppercase</li>
+          <li id="rule-number"><i class="fa-solid fa-circle-xmark"></i> 1 Number</li>
+          <li id="rule-match"><i class="fa-solid fa-circle-xmark"></i> Match Confirm</li>
+        </ul>
+
+        <div class="form-group-standard">
+          <label for="signup-confirm" class="form-label-standard">Confirm Password</label>
+          <div class="password-toggle-box">
+            <input type="password" id="signup-confirm" class="form-input-standard" placeholder="Confirm password" required autocomplete="new-password">
+            <i class="fa-solid fa-eye-slash password-toggle" id="signup-confirm-toggle"></i>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px;"><i class="fa-solid fa-user-plus"></i> Configure Client Node</button>
+      </form>
+
+      <p class="auth-footer-text">
+        Already have a node key? <a href="login.html">Log In</a>
+      </p>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

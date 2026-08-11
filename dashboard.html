@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telemetry Dashboard | Stackly Client Portal</title>
+  <meta name="description" content="View live water treatment metrics, monitor filter node pressure, and inspect telemetry diagnostics logs.">
+  <link rel="icon" type="image/webp" href="assets/logo.webp">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    /* Dashboard-specific Layout override */
+    body {
+      background-color: #0b0f19;
+      color: #f1f5f9;
+      overflow-y: hidden;
+      height: 100vh;
+    }
+    .dash-wrapper {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    /* MOBILE HEADER BAR */
+    .dash-mobile-bar {
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: #0f172a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      z-index: 100;
+    }
+    .dash-mobile-bar img {
+      height: 30px;
+    }
+    .mobile-dash-toggle {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    /* SIDEBAR */
+    .dash-sidebar {
+      background-color: #0f172a;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      z-index: 10;
+      transition: left 0.3s ease;
+    }
+    .dash-logo-box {
+      margin-bottom: 40px;
+    }
+    .dash-logo-box img {
+      height: 38px;
+    }
+    .mobile-sidebar-close {
+      display: none;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+    .dash-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .dash-menu-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition-fast);
+      cursor: pointer;
+    }
+    .dash-menu-link:hover,
+    .dash-menu-link.active {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--secondary);
+    }
+    .dash-menu-link.active {
+      border-left: 3px solid var(--secondary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+    .dash-logout {
+      color: #ef4444;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    .dash-logout:hover {
+      background: rgba(239, 68, 68, 0.1);
+      border-radius: var(--radius-sm);
+    }
+
+    /* PREMIUM ACCENT BUTTONS */
+    .btn-dash-action {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #ffffff !important;
+      border: none;
+      padding: 8px 18px;
+      border-radius: var(--radius-pill);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+      box-shadow: 0 4px 10px rgba(0, 180, 216, 0.2);
+    }
+    .btn-dash-action:hover {
+      transform: translateY(-1.5px);
+      box-shadow: 0 6px 14px rgba(0, 180, 216, 0.45);
+    }
+
+    /* MAIN CONTENT */
+    .dash-main-content {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 30px;
+      height: 100vh;
+    }
+    .dash-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .dash-title-wrap h2 {
+      color: #fff;
+      font-size: 1.6rem;
+    }
+    .dash-title-wrap p {
+      color: #94a3b8;
+      font-size: 0.88rem;
+    }
+    .dash-actions-panel {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .dash-notification-btn {
+      position: relative;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #cbd5e1;
+      cursor: pointer;
+    }
+    .dash-notification-btn .pulse-badge {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+      animation: pulse-ring 2s infinite;
+    }
+    .dash-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .dash-profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+    }
+    .dash-profile-info h5 {
+      color: #fff;
+      font-size: 0.88rem;
+    }
+    .dash-profile-info span {
+      color: #94a3b8;
+      font-size: 0.75rem;
+    }
+
+    /* PANELS STYLINGS */
+    .dash-panel {
+      display: none;
+    }
+    .dash-panel.active {
+      display: block;
+    }
+
+    /* CARDS GRID */
+    .dash-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .dash-card {
+      background-color: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+    .dash-card-left h4 {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .dash-card-left .metric-val {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      color: #fff;
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+    }
+    .dash-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    .dash-card:nth-child(2) .dash-card-icon {
+      background: rgba(6, 182, 212, 0.1);
+      color: var(--secondary);
+    }
+    .dash-card:nth-child(3) .dash-card-icon {
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--accent);
+    }
+    .dash-card:nth-child(4) .dash-card-icon {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+    
+    /* ANALYTICS SECTION */
+    .dash-analytics-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.6fr;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+    .dash-chart-panel {
+      background-color: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .panel-header h3 {
+      font-size: 1.15rem;
+      color: #fff;
+    }
+    .chart-legend {
+      display: flex;
+      gap: 16px;
+      font-size: 0.85rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .chart-container-box {
+      width: 100%;
+      height: 280px;
+      position: relative;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    #telemetry-chart {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* MODULES PANEL */
+    .dash-modules-panel {
+      background-color: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+    }
+    .modules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 15px;
+    }
+    .module-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .module-info h5 {
+      color: #fff;
+      font-size: 0.92rem;
+    }
+    .module-info p {
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+    .module-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #2ec4b6;
+    }
+    .status-dot-pulse {
+      width: 10px;
+      height: 10px;
+      background-color: #2ec4b6;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #2ec4b6;
+      animation: pulse-ring 2s infinite;
+    }
+
+    /* TERMINAL/LOGS PANEL */
+    .dash-terminal-panel {
+      background-color: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .terminal-console {
+      background-color: #05070c;
+      border-radius: 8px;
+      padding: 18px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.85rem;
+      color: #4cc9f0;
+      flex: 1;
+      height: 140px;
+      overflow-y: auto;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+    .terminal-line {
+      margin-bottom: 6px;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+    .terminal-line span.time {
+      color: var(--primary);
+    }
+    .terminal-line span.success {
+      color: #2ec4b6;
+    }
+    .terminal-line span.warn {
+      color: var(--accent);
+    }
+
+    /* MOBILE RESPONSIVE MEDIA STYLES */
+    @media (max-width: 768px) {
+      .dash-wrapper {
+        grid-template-columns: 1fr;
+      }
+      .dash-mobile-bar {
+        display: flex;
+      }
+      .dash-sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        width: 280px;
+        height: 100vh;
+        z-index: 999;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+      }
+      .dash-sidebar.open {
+        left: 0;
+      }
+      .mobile-sidebar-close {
+        display: block;
+      }
+      .dash-logo-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+      .dash-main-content {
+        padding: 20px;
+        height: calc(100vh - 61px); /* minus mobile top bar */
+      }
+      .dash-cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .dash-analytics-grid {
+        grid-template-columns: 1fr;
+      }
+      .dash-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      .dash-actions-panel {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+    @media (max-width: 1100px) and (min-width: 769px) {
+      .dash-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .dash-analytics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Top Bar -->
+  <div class="dash-mobile-bar">
+    <a href="index.html">
+      <img src="assets/logo.webp" alt="Stackly logo">
+    </a>
+    <button class="mobile-dash-toggle" id="mobile-dash-toggle" aria-label="Toggle Dashboard Menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+
+  <div class="dash-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside class="dash-sidebar">
+      <div>
+        <div class="dash-logo-box">
+          <a href="index.html">
+            <img src="assets/logo.webp" alt="Stackly logo">
+          </a>
+          <button class="mobile-sidebar-close" id="mobile-sidebar-close" aria-label="Close Dashboard Menu">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <nav>
+          <ul class="dash-menu">
+            <li>
+              <a class="dash-menu-link active" data-target="panel-overview">
+                <i class="fa-solid fa-gauge"></i> Overview
+              </a>
+            </li>
+            <li>
+              <a class="dash-menu-link" data-target="panel-sensors">
+                <i class="fa-solid fa-chart-line"></i> Live Sensors
+              </a>
+            </li>
+            <li>
+              <a class="dash-menu-link" data-target="panel-nodes">
+                <i class="fa-solid fa-diagram-project"></i> Purifier Nodes
+              </a>
+            </li>
+            <li>
+              <a class="dash-menu-link" data-target="panel-logs">
+                <i class="fa-solid fa-list-check"></i> Telemetry Logs
+              </a>
+            </li>
+            <li>
+              <a class="dash-menu-link" data-target="panel-settings">
+                <i class="fa-solid fa-sliders"></i> System Settings
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div>
+        <a href="login.html" class="dash-logout">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout Portal
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main operations panel -->
+    <main class="dash-main-content">
+      <!-- Header row -->
+      <header class="dash-header">
+        <div class="dash-title-wrap">
+          <h2>Telemetry Operations</h2>
+          <p>Industrial Node ID: STK-IND-042B-BANGALORE</p>
+        </div>
+
+        <div class="dash-actions-panel">
+          <div class="dash-notification-btn" aria-label="Notifications Alerts" onclick="window.location.href='404.html';">
+            <i class="fa-solid fa-bell"></i>
+            <span class="pulse-badge"></span>
+          </div>
+
+          <div class="dash-profile" onclick="window.location.href='404.html';" style="cursor: pointer;">
+            <img src="assets/team_elena_11zon.webp" alt="Client Operator Profile image">
+            <div class="dash-profile-info">
+              <h5>Dr. Rostova</h5>
+              <span>Senior Environmental Officer</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PANEL 1: OVERVIEW -->
+      <div id="panel-overview" class="dash-panel active">
+        <!-- Cards Grid -->
+        <section class="dash-cards-grid">
+          <div class="dash-card">
+            <div class="dash-card-left">
+              <h4>Daily Flow Rate</h4>
+              <div class="metric-val">12,482,920 L</div>
+            </div>
+            <div class="dash-card-icon"><i class="fa-solid fa-droplet"></i></div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-card-left">
+              <h4>Purification Health</h4>
+              <div class="metric-val">98.4%</div>
+            </div>
+            <div class="dash-card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-card-left">
+              <h4>Water pH Index</h4>
+              <div class="metric-val">7.24 pH</div>
+            </div>
+            <div class="dash-card-icon"><i class="fa-solid fa-flask"></i></div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-card-left">
+              <h4>Clogging Risk</h4>
+              <div class="metric-val">2.1%</div>
+            </div>
+            <div class="dash-card-icon" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          </div>
+        </section>
+
+        <!-- Middle row -->
+        <section class="dash-analytics-grid">
+          <div class="dash-chart-panel">
+            <div class="panel-header">
+              <h3>Live Telemetry Flow Analytics</h3>
+              <div class="chart-legend">
+                <div class="legend-item">
+                  <span class="legend-dot" style="background: var(--primary);"></span> Flow (L/s)
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot" style="background: var(--secondary);"></span> Pressure (kPa)
+                </div>
+              </div>
+            </div>
+            <div class="chart-container-box">
+              <canvas id="telemetry-chart"></canvas>
+            </div>
+          </div>
+
+          <div class="dash-modules-panel">
+            <div class="panel-header">
+              <h3>Purification Nodes</h3>
+            </div>
+            <div class="modules-list">
+              <div class="module-item">
+                <div class="module-info">
+                  <h5>Sediment Filter Skid</h5>
+                  <p>Node 01: Macro Filtration</p>
+                </div>
+                <div class="module-status"><span class="status-dot-pulse"></span> Active</div>
+              </div>
+              <div class="module-item">
+                <div class="module-info">
+                  <h5>Activated Carbon Column</h5>
+                  <p>Node 02: Volatile Extraction</p>
+                </div>
+                <div class="module-status"><span class="status-dot-pulse"></span> Active</div>
+              </div>
+              <div class="module-item">
+                <div class="module-info">
+                  <h5>Reverse Osmosis Array</h5>
+                  <p>Node 03: Nano-Osmosis Cell</p>
+                </div>
+                <div class="module-status"><span class="status-dot-pulse"></span> Active</div>
+              </div>
+              <div class="module-item">
+                <div class="module-info">
+                  <h5>UV Sterilization Chamber</h5>
+                  <p>Node 04: DNA Sanitation Loop</p>
+                </div>
+                <div class="module-status"><span class="status-dot-pulse"></span> Active</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- PANEL 2: LIVE SENSORS -->
+      <div id="panel-sensors" class="dash-panel">
+        <section class="dash-cards-grid">
+          <div class="dash-card">
+            <div class="dash-card-left">
+              <h4>TDS Level</h4>
+              <div class="metric-val">142 ppm</div>
+            </div>
+            <div class="dash-card-icon"><i class="fa-solid fa-circle-info"></i></div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-left">
+              <h4>Temperature</h4>
+              <div class="metric-val">28.4 °C</div>
+            </div>
+            <div class="dash-card-icon"><i class="fa-solid fa-temperature-three-quarters"></i></div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-left">
+              <h4>Dissolved Oxygen</h4>
+              <div class="metric-val">8.2 mg/L</div>
+            </div>
+            <div class="dash-card-icon"><i class="fa-solid fa-wind"></i></div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-left">
+              <h4>Turbidity</h4>
+              <div class="metric-val">0.12 NTU</div>
+            </div>
+            <div class="dash-card-icon"><i class="fa-solid fa-eye-low-vision"></i></div>
+          </div>
+        </section>
+
+        <section class="dash-analytics-grid" style="grid-template-columns: 1fr;">
+          <div class="dash-chart-panel" style="padding: 30px;">
+            <h3>Sensor Performance Metrics Table</h3>
+            <div style="width: 100%; overflow-x: auto; margin-top: 15px;">
+              <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem;">
+                <thead>
+                  <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: #cbd5e1;">
+                    <th style="padding: 12px;">Sensor Node</th>
+                    <th>Sensor Type</th>
+                    <th>Current Value</th>
+                    <th>Signal Strength</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 14px 12px;">STK-SENS-01</td>
+                    <td>pH Diagnostic probe</td>
+                    <td>7.24 pH</td>
+                    <td>98% (LTE)</td>
+                    <td><span style="color: #2ec4b6; font-weight: 600;"><i class="fa-solid fa-circle" style="font-size: 0.6rem; margin-right: 6px;"></i> Nominal</span></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 14px 12px;">STK-SENS-02</td>
+                    <td>Inductive Conductivity (TDS)</td>
+                    <td>142 ppm</td>
+                    <td>94% (LTE)</td>
+                    <td><span style="color: #2ec4b6; font-weight: 600;"><i class="fa-solid fa-circle" style="font-size: 0.6rem; margin-right: 6px;"></i> Nominal</span></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 14px 12px;">STK-SENS-03</td>
+                    <td>Electrochemical O2 Probe</td>
+                    <td>8.2 mg/L</td>
+                    <td>100% (Modbus Wire)</td>
+                    <td><span style="color: #2ec4b6; font-weight: 600;"><i class="fa-solid fa-circle" style="font-size: 0.6rem; margin-right: 6px;"></i> Nominal</span></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 14px 12px;">STK-SENS-04</td>
+                    <td>Scattered Light Turbidity meter</td>
+                    <td>0.12 NTU</td>
+                    <td>89% (LTE)</td>
+                    <td><span style="color: #2ec4b6; font-weight: 600;"><i class="fa-solid fa-circle" style="font-size: 0.6rem; margin-right: 6px;"></i> Nominal</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- PANEL 3: PURIFIER NODES -->
+      <div id="panel-nodes" class="dash-panel">
+        <section class="dash-analytics-grid" style="grid-template-columns: 1fr;">
+          <div class="dash-chart-panel" style="padding: 30px;">
+            <h3>Diagnostics & Control Registry</h3>
+            <p style="color: #cbd5e1; margin-bottom: 24px;">Configure operational state variables and initiate localized system cleaning flushes.</p>
+            
+            <div class="modules-list" style="gap: 20px;">
+              <div class="module-item" style="padding: 20px;">
+                <div class="module-info">
+                  <h4 style="color: #fff; margin-bottom: 4px;">Sediment Filter Skid (Node 01)</h4>
+                  <p>Inlet pressure: 1.2 MPa | Differential pressure: 0.04 MPa (Healthy)</p>
+                </div>
+                <button class="btn-dash-action" onclick="window.location.href='404.html';">Manual Backwash</button>
+              </div>
+              <div class="module-item" style="padding: 20px;">
+                <div class="module-info">
+                  <h4 style="color: #fff; margin-bottom: 4px;">Activated Carbon Column (Node 02)</h4>
+                  <p>Absorption bed depth: 2.2m | Absorption capacity remaining: 95.4%</p>
+                </div>
+                <button class="btn-dash-action" onclick="window.location.href='404.html';">Carbon Regen</button>
+              </div>
+              <div class="module-item" style="padding: 20px;">
+                <div class="module-info">
+                  <h4 style="color: #fff; margin-bottom: 4px;">Reverse Osmosis Array (Node 03)</h4>
+                  <p>Flux rate: 14.2 L/m²h | Salt rejection index: 99.82%</p>
+                </div>
+                <button class="btn-dash-action" onclick="window.location.href='404.html';">Pure Water Flush</button>
+              </div>
+              <div class="module-item" style="padding: 20px;">
+                <div class="module-info">
+                  <h4 style="color: #fff; margin-bottom: 4px;">UV Sanitization Skid (Node 04)</h4>
+                  <p>Sanitizing intensity: 48 mJ/cm² | Lamp power draw: 120W (Optimal)</p>
+                </div>
+                <button class="btn-dash-action" onclick="window.location.href='404.html';">Self-Test UV</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- PANEL 4: TELEMETRY LOGS -->
+      <div id="panel-logs" class="dash-panel">
+        <section class="dash-analytics-grid" style="grid-template-columns: 1fr;">
+          <div class="dash-chart-panel" style="padding: 30px;">
+            <div class="panel-header">
+              <h3>Comprehensive Logs Output Console</h3>
+              <button class="btn-dash-action" onclick="window.location.href='404.html';">Clear Terminal</button>
+            </div>
+            <div class="terminal-console" style="height: 380px;" id="terminal-console">
+              <!-- Logs appended dynamically from JS -->
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- PANEL 5: SYSTEM SETTINGS -->
+      <div id="panel-settings" class="dash-panel">
+        <section class="dash-analytics-grid" style="grid-template-columns: 1fr;">
+          <div class="dash-chart-panel" style="padding: 30px; text-align: left;">
+            <h3 style="margin-bottom: 8px; color: #fff;">Telemetry Node Configuration</h3>
+            <p style="color: #cbd5e1; margin-bottom: 30px;">Define alarm thresholds and transmission frequencies for STK-IND-042B Bangalore skid.</p>
+            
+            <form onsubmit="event.preventDefault(); window.location.href='404.html';" style="max-width: 500px; display: flex; flex-direction: column; gap: 20px;">
+              <div>
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 8px;">Uplink Reporting Frequency</label>
+                <select style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); padding: 12px; border-radius: 4px; color:#fff;">
+                  <option style="background-color: #111827;" value="30">Every 30 Seconds</option>
+                  <option style="background-color: #111827;" value="60" selected>Every 60 Seconds</option>
+                  <option style="background-color: #111827;" value="300">Every 5 Minutes</option>
+                </select>
+              </div>
+              
+              <div>
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 8px;">Emergency Pressure Cutoff Bounds (kPa)</label>
+                <input type="number" value="650" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); padding: 12px; border-radius: 4px; color:#fff;">
+              </div>
+
+              <div>
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 8px;">pH Range Alert Margin</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                  <input type="number" step="0.1" value="6.5" placeholder="Min pH" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); padding: 12px; border-radius: 4px; color:#fff;">
+                  <input type="number" step="0.1" value="8.5" placeholder="Max pH" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); padding: 12px; border-radius: 4px; color:#fff;">
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 8px; margin-top: 10px;">
+                <input type="checkbox" id="email-alert" checked style="width: 16px; height: 16px;">
+                <label for="email-alert" style="color: #cbd5e1; font-size: 0.9rem; cursor: pointer;">Enable automatic system backup switch alarms</label>
+              </div>
+
+              <button type="submit" class="btn-dash-action" style="margin-top: 10px; padding: 12px 24px; align-self: flex-start; border-radius: 4px;">Save Configuration</button>
+            </form>
+          </div>
+        </section>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

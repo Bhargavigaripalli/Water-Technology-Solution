@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Operations Console | Stackly Administration</title>
+  <meta name="description" content="View global network yields, manage remote node flushes, and configure telemetry alarm thresholds.">
+  <link rel="icon" type="image/webp" href="assets/logo.webp">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    /* Dashboard-specific Layout override */
+    body {
+      background-color: #0b0f19;
+      color: #f1f5f9;
+      overflow-y: hidden;
+      height: 100vh;
+    }
+    .dash-wrapper {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* MOBILE HEADER BAR */
+    .dash-mobile-bar {
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: #0f172a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      z-index: 100;
+    }
+    .dash-mobile-bar img {
+      height: 30px;
+    }
+    .mobile-dash-toggle {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+      padding: 5px;
+    }
+    
+    /* SIDEBAR */
+    .dash-sidebar {
+      background-color: #0f172a;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      z-index: 10;
+      transition: left 0.3s ease;
+    }
+    .dash-logo-box {
+      margin-bottom: 40px;
+    }
+    .dash-logo-box img {
+      height: 38px;
+    }
+    .mobile-sidebar-close {
+      display: none;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+    .dash-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .dash-menu-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition-fast);
+      cursor: pointer;
+    }
+    .dash-menu-link:hover,
+    .dash-menu-link.active {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--secondary);
+    }
+    .dash-menu-link.active {
+      border-left: 3px solid var(--secondary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+    .dash-logout {
+      color: #ef4444;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    .dash-logout:hover {
+      background: rgba(239, 68, 68, 0.1);
+      border-radius: var(--radius-sm);
+    }
+
+    /* PREMIUM ACCENT BUTTONS */
+    .btn-dash-action {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #ffffff !important;
+      border: none;
+      padding: 8px 18px;
+      border-radius: var(--radius-pill);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+      box-shadow: 0 4px 10px rgba(0, 180, 216, 0.2);
+    }
+    .btn-dash-action:hover {
+      transform: translateY(-1.5px);
+      box-shadow: 0 6px 14px rgba(0, 180, 216, 0.45);
+    }
+
+    /* MAIN CONTENT */
+    .dash-main-content {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 30px;
+      height: 100vh;
+    }
+    .dash-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .dash-title-wrap h2 {
+      color: #fff;
+      font-size: 1.6rem;
+    }
+    .dash-title-wrap p {
+      color: #94a3b8;
+      font-size: 0.88rem;
+    }
+    .dash-actions-panel {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .dash-notification-btn {
+      position: relative;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #cbd5e1;
+      cursor: pointer;
+    }
+    .dash-notification-btn .pulse-badge {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+      animation: pulse-ring 2s infinite;
+    }
+    .dash-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .dash-profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+    }
+    .dash-profile-info h5 {
+      color: #fff;
+      font-size: 0.88rem;
+    }
+    .dash-profile-info span {
+      color: #94a3b8;
+      font-size: 0.75rem;
+    }
+
+    /* PANELS STYLINGS */
+    .dash-panel {
+      display: none;
+    }
+    .dash-panel.active {
+      display: block;
+    }
+
+    /* CARDS GRID */
+    .dash-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .dash-card {
+      background-color: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+    .dash-card-left h4 {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .dash-card-left .metric-val {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      color: #fff;
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
+    }
+    .dash-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    .dash-card:nth-child(2) .dash-card-icon {
+      background: rgba(6, 182, 212, 0.1);
+      color: var(--secondary);
+    }
+    .dash-card:nth-child(3) .dash-card-icon {
+      background: rgba(46, 196, 182, 0.1);
+      color: #2ec4b6;
+    }
+    .dash-card:nth-child(4) .dash-card-icon {
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--accent);
+    }
+    
+    /* ANALYTICS SECTION */
+    .dash-analytics-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+    .dash-chart-panel {
+      background-color: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .panel-header h3 {
+      font-size: 1.15rem;
+      color: #fff;
+    }
+    .chart-container-box {
+      width: 100%;
+      height: 280px;
+      position: relative;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    #admin-telemetry-chart {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ACTIVE NODES TABLE */
+    .dash-nodes-table-panel {
+      background-color: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      overflow: hidden;
+    }
+    .nodes-table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: 15px;
+    }
+    .nodes-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    .nodes-table th {
+      color: #cbd5e1;
+      font-weight: 600;
+      padding: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .nodes-table td {
+      color: #cbd5e1;
+      padding: 14px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .nodes-table tr:hover td {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+    .status-badge.online {
+      background: rgba(46, 196, 182, 0.1);
+      color: #2ec4b6;
+    }
+    .status-badge.flush {
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--accent);
+    }
+    .status-dot-pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: pulse-ring 2s infinite;
+    }
+    .status-badge.online .status-dot-pulse { background-color: #2ec4b6; box-shadow: 0 0 8px #2ec4b6; }
+    .status-badge.flush .status-dot-pulse { background-color: var(--accent); box-shadow: 0 0 8px var(--accent); }
+
+    /* TERMINAL/LOGS PANEL */
+    .dash-terminal-panel {
+      background-color: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .terminal-console {
+      background-color: #05070c;
+      border-radius: 8px;
+      padding: 18px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.85rem;
+      color: #f59e0b;
+      flex: 1;
+      height: 120px;
+      overflow-y: auto;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+    .terminal-line {
+      margin-bottom: 6px;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+    .terminal-line span.time {
+      color: var(--secondary);
+    }
+    .terminal-line span.success {
+      color: #2ec4b6;
+    }
+    .terminal-line span.warn {
+      color: var(--accent);
+    }
+    .terminal-line span.admin-action {
+      color: #a855f7;
+    }
+
+    /* MOBILE RESPONSIVE MEDIA STYLES */
+    @media (max-width: 768px) {
+      .dash-wrapper {
+        grid-template-columns: 1fr;
+      }
+      .dash-mobile-bar {
+        display: flex;
+      }
+      .dash-sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        width: 280px;
+        height: 100vh;
+        z-index: 999;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+      }
+      .dash-sidebar.open {
+        left: 0;
+      }
+      .mobile-sidebar-close {
+        display: block;
+      }
+      .dash-logo-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+      .dash-main-content {
+        padding: 20px;
+        height: calc(100vh - 61px); /* minus mobile top bar */
+      }
+      .dash-cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .dash-analytics-grid {
+        grid-template-columns: 1fr;
+      }
+      .dash-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      .dash-actions-panel {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+    @media (max-width: 1100px) and (min-width: 769px) {
+      .dash-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .dash-analytics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Top Bar -->
+  <div class="dash-mobile-bar">
+    <a href="index.html">
+      <img src="assets/logo.webp" alt="Stackly logo">
+    </a>
+    <button class="mobile-dash-toggle" id="mobile-dash-toggle" aria-label="Toggle Dashboard Menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+
+  <div class="dash-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside class="dash-sidebar">
+      <div>
+        <div class="dash-logo-box">
+          <a href="index.html">
+            <img src="assets/logo.webp" alt="Stackly logo">
+          </a>
+          <button class="mobile-sidebar-close" id="mobile-sidebar-close" aria-label="Close Dashboard Menu">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <nav>
+          <ul class="dash-menu">
+            <li>
+              <a class="dash-menu-link active" data-target="panel-admin-overview">
+                <i class="fa-solid fa-screwdriver-wrench"></i> Global Overview
+              </a>
+            </li>
+            <li>
+              <a class="dash-menu-link" data-target="panel-admin-nodes">
+                <i class="fa-solid fa-server"></i> Node Management
+              </a>
+            </li>
+            <li>
+              <a class="dash-menu-link" data-target="panel-admin-flushes">
+                <i class="fa-solid fa-toggle-on"></i> Remote Flushes
+              </a>
+            </li>
+            <li>
+              <a class="dash-menu-link" data-target="panel-admin-alarms">
+                <i class="fa-solid fa-circle-exclamation"></i> Alarm Thresholds
+              </a>
+            </li>
+            <li>
+              <a class="dash-menu-link" data-target="panel-admin-config">
+                <i class="fa-solid fa-gears"></i> Core Config
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div>
+        <a href="login.html" class="dash-logout">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout Portal
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <main class="dash-main-content">
+      <!-- Header row -->
+      <header class="dash-header">
+        <div class="dash-title-wrap">
+          <h2>Global Operations Console</h2>
+          <p>Access Authority: Level 5 Administrator (Root Session)</p>
+        </div>
+
+        <div class="dash-actions-panel">
+          <div class="dash-notification-btn" aria-label="Notifications Alerts" onclick="window.location.href='404.html';">
+            <i class="fa-solid fa-bell"></i>
+            <span class="pulse-badge"></span>
+          </div>
+
+          <div class="dash-profile" onclick="window.location.href='404.html';" style="cursor: pointer;">
+            <img src="assets/team_arjun_11zon.webp" alt="Admin Operator Image">
+            <div class="dash-profile-info">
+              <h5>Admin Console</h5>
+              <span>Root Coordinator</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PANEL 1: ADMIN OVERVIEW -->
+      <div id="panel-admin-overview" class="dash-panel active">
+        <!-- Cards Grid -->
+        <section class="dash-cards-grid">
+          <div class="dash-card">
+            <div class="dash-card-left">
+              <h4>Total Active Nodes</h4>
+              <div class="metric-val">42 Skids</div>
+            </div>
+            <div class="dash-card-icon"><i class="fa-solid fa-network-wired"></i></div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-card-left">
+              <h4>Global Daily Yield</h4>
+              <div class="metric-val">142.8M L</div>
+            </div>
+            <div class="dash-card-icon"><i class="fa-solid fa-chart-line"></i></div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-card-left">
+              <h4>Critical Alarms</h4>
+              <div class="metric-val" style="color: #2ec4b6; text-shadow: 0 0 10px rgba(46, 196, 182, 0.2);">0 Alerts</div>
+            </div>
+            <div class="dash-card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-card-left">
+              <h4>Database Sync</h4>
+              <div class="metric-val">99.98%</div>
+            </div>
+            <div class="dash-card-icon"><i class="fa-solid fa-rotate"></i></div>
+          </div>
+        </section>
+
+        <!-- Middle layout (Data chart & Node Table) -->
+        <section class="dash-analytics-grid">
+          <div class="dash-chart-panel">
+            <div class="panel-header">
+              <h3>Global Telemetry Network Traffic Load</h3>
+              <div style="font-size: 0.85rem; color: var(--secondary); font-weight: 600;"><i class="fa-solid fa-circle" style="font-size: 0.6rem; animation: pulse-ring 2.5s infinite;"></i> Remote Modbus Uplink Live</div>
+            </div>
+            <div class="chart-container-box">
+              <canvas id="admin-telemetry-chart"></canvas>
+            </div>
+          </div>
+
+          <div class="dash-nodes-table-panel">
+            <div class="panel-header">
+              <h3>Node Networks Status</h3>
+            </div>
+            
+            <div class="nodes-table-wrapper">
+              <table class="nodes-table">
+                <thead>
+                  <tr>
+                    <th>Node ID</th>
+                    <th>Location</th>
+                    <th>Process Yield</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>STK-IND-01</td>
+                    <td>Bangalore Phase II</td>
+                    <td>12.4M L/day</td>
+                    <td><span class="status-badge online"><span class="status-dot-pulse"></span> Online</span></td>
+                  </tr>
+                  <tr>
+                    <td>STK-IND-02</td>
+                    <td>Chennai Port Skid A</td>
+                    <td>38.6M L/day</td>
+                    <td><span class="status-badge online"><span class="status-dot-pulse"></span> Online</span></td>
+                  </tr>
+                  <tr>
+                    <td>STK-IND-03</td>
+                    <td>Mumbai Chemical Unit</td>
+                    <td>18.2M L/day</td>
+                    <td><span class="status-badge flush"><span class="status-dot-pulse"></span> Flush Mode</span></td>
+                  </tr>
+                  <tr>
+                    <td>STK-IND-04</td>
+                    <td>Delhi Telemetry Terminal</td>
+                    <td>73.6M L/day</td>
+                    <td><span class="status-badge online"><span class="status-dot-pulse"></span> Online</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bottom logs terminal -->
+        <section class="dash-terminal-panel">
+          <div class="panel-header">
+            <h3>Administrative Remote Command Log</h3>
+          </div>
+          <div class="terminal-console" id="admin-terminal-console">
+            <!-- Lines will append dynamically from JS -->
+          </div>
+        </section>
+      </div>
+
+      <!-- PANEL 2: ADMIN NODE MANAGEMENT -->
+      <div id="panel-admin-nodes" class="dash-panel">
+        <section class="dash-analytics-grid" style="grid-template-columns: 1fr;">
+          <div class="dash-chart-panel" style="padding: 30px;">
+            <div class="panel-header">
+              <h3>Industrial Skid Node Configuration Keys</h3>
+              <button class="btn-dash-action" onclick="window.location.href='404.html';">Register New Skid</button>
+            </div>
+            
+            <div class="nodes-table-wrapper">
+              <table class="nodes-table">
+                <thead>
+                  <tr>
+                    <th>Hardware UUID</th>
+                    <th>Reporting Port</th>
+                    <th>Protocol</th>
+                    <th>Firmware Ver</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 14px 12px; font-family: monospace;">e82d-45bf-a112</td>
+                    <td>502 (TCP)</td>
+                    <td>Modbus over IP</td>
+                    <td>v4.2.1-prod</td>
+                    <td><button class="btn-dash-action" onclick="window.location.href='404.html';">Export Key</button></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 14px 12px; font-family: monospace;">d981-99af-bb08</td>
+                    <td>502 (TCP)</td>
+                    <td>Modbus over IP</td>
+                    <td>v4.2.0-prod</td>
+                    <td><button class="btn-dash-action" onclick="window.location.href='404.html';">Export Key</button></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 14px 12px; font-family: monospace;">c249-114d-909d</td>
+                    <td>503 (TCP)</td>
+                    <td>Modbus over RTU</td>
+                    <td>v3.9.8-legacy</td>
+                    <td><button class="btn-dash-action" onclick="window.location.href='404.html';">Export Key</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- PANEL 3: REMOTE FLUSHES -->
+      <div id="panel-admin-flushes" class="dash-panel">
+        <section class="dash-analytics-grid" style="grid-template-columns: 1fr;">
+          <div class="dash-chart-panel" style="padding: 30px; text-align: center;">
+            <h3 style="margin-bottom: 12px; color: #fff;">Network-Wide Emergency Flush Control</h3>
+            <p style="color: #cbd5e1; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+              Trigger instantaneous backwashes or automated cleaning cycles on remote telemetry units. Note: This action bypasses scheduled loops.
+            </p>
+            
+            <div style="background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); padding: 30px; border-radius: 12px; max-width: 500px; margin: 0 auto 30px auto;">
+              <i class="fa-solid fa-triangle-exclamation" style="font-size: 3rem; color: #ef4444; margin-bottom: 16px;"></i>
+              <h4 style="color: #fff; margin-bottom: 10px;">Master Override Terminal</h4>
+              <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 24px;">Global emergency purge resets all flow valves to 100% capacity output immediately.</p>
+              <button class="btn btn-primary" onclick="window.location.href='404.html';" style="background: #ef4444; border: none; padding: 14px 28px; font-weight: 700; color: #fff; border-radius: 4px; cursor:pointer;">TRIGGER GLOBAL EMERGENCY PURGE</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- PANEL 4: ALARM THRESHOLDS -->
+      <div id="panel-admin-alarms" class="dash-panel">
+        <section class="dash-analytics-grid" style="grid-template-columns: 1fr;">
+          <div class="dash-chart-panel" style="padding: 30px;">
+            <h3>Global Safety & Alert Threshold Configuration</h3>
+            <p style="color: #cbd5e1; margin-bottom: 24px;">Configure administrative limit registers. Violating these rules flags the node status to "WARNING" globally.</p>
+            
+            <form onsubmit="event.preventDefault(); window.location.href='404.html';" style="max-width: 600px; display: flex; flex-direction: column; gap: 20px; text-align: left;">
+              <div>
+                <label style="display: block; font-size: 0.88rem; font-weight: 600; color: #cbd5e1; margin-bottom: 8px;">Minimum Flow Threshold (L/s)</label>
+                <input type="number" value="15" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); padding: 12px; border-radius: 4px; color:#fff;">
+              </div>
+              
+              <div>
+                <label style="display: block; font-size: 0.88rem; font-weight: 600; color: #cbd5e1; margin-bottom: 8px;">Maximum Differential Pressure Margin (MPa)</label>
+                <input type="number" step="0.01" value="0.12" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); padding: 12px; border-radius: 4px; color:#fff;">
+              </div>
+
+              <div>
+                <label style="display: block; font-size: 0.88rem; font-weight: 600; color: #cbd5e1; margin-bottom: 8px;">Conductivity Range Limits (ppm)</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                  <input type="number" value="50" placeholder="Min ppm" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); padding: 12px; border-radius: 4px; color:#fff;">
+                  <input type="number" value="350" placeholder="Max ppm" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); padding: 12px; border-radius: 4px; color:#fff;">
+                </div>
+              </div>
+
+              <button type="submit" class="btn-dash-action" style="padding: 12px 24px; align-self: flex-start; border-radius: 4px;">Sync Bounds Registry</button>
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <!-- PANEL 5: CORE CONFIG -->
+      <div id="panel-admin-config" class="dash-panel">
+        <section class="dash-analytics-grid" style="grid-template-columns: 1fr;">
+          <div class="dash-chart-panel" style="padding: 30px; text-align: left;">
+            <h3 style="margin-bottom: 12px; color:#fff;">Global Modbus Telemetry Settings</h3>
+            <p style="color: #cbd5e1; margin-bottom: 30px;">Manage cellular payload profiles, global synchronization frequencies, and core system credentials.</p>
+            
+            <form onsubmit="event.preventDefault(); window.location.href='404.html';" style="max-width: 550px; display: flex; flex-direction: column; gap: 20px;">
+              <div>
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 8px;">Primary Database Telemetry Server Endpoint</label>
+                <input type="text" value="https://telemetry.stackly.water-ops.net/v2/feed" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); padding: 12px; border-radius: 4px; color:#fff;">
+              </div>
+
+              <div>
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 8px;">Backup Server Endpoint</label>
+                <input type="text" value="https://telemetry-fallback.stackly.water-ops.net/v2/feed" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); padding: 12px; border-radius: 4px; color:#fff;">
+              </div>
+
+              <div>
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 8px;">Firmware Deployment Key</label>
+                <input type="password" value="●●●●●●●●●●●●●●●●●●●●" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); padding: 12px; border-radius: 4px; color:#fff;">
+              </div>
+
+              <button type="submit" class="btn-dash-action" style="padding: 12px 24px; align-self: flex-start; margin-top: 10px; border-radius: 4px;">Save System Parameters</button>
+            </form>
+          </div>
+        </section>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

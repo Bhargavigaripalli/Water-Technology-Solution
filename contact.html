@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Stackly Water Technology</title>
+  <meta name="description" content="Get in touch with Stackly's engineering team, request system spec reports, or contact our 24/7 telemetry monitoring offices.">
+  <link rel="icon" type="image/webp" href="assets/logo.webp">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- Custom Cursor Canvas -->
+  <canvas id="cursor-canvas"></canvas>
+
+  <!-- Preloader Screen -->
+  <div id="site-preloader" class="site-preloader">
+    <div class="preloader-droplet-wrapper">
+      <div class="preloader-droplet"></div>
+      <div class="preloader-pool"></div>
+      <div class="preloader-ripple"></div>
+    </div>
+    <div class="preloader-logo">Stack<span>ly</span></div>
+    <div class="preloader-bar"><span></span></div>
+  </div>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-info">
+        <span><i class="fa-solid fa-location-dot"></i> Tech Park Phase II, Bangalore, KA - 560066</span>
+        <span><i class="fa-solid fa-phone"></i> +91 80 4567 8900</span>
+        <span><i class="fa-solid fa-clock"></i> Support: 24/7 Telemetry Monitoring</span>
+      </div>
+      <div class="top-bar-links">
+        <a href="404.html" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="404.html" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="404.html" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="container navbar-bar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/logo.webp" alt="Stackly Logo">
+      </a>
+
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-panel">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="nav-panel" id="nav-panel">
+        <div class="nav-panel-header">
+          <a href="index.html" class="brand-logo">
+            <img src="assets/logo.webp" alt="Stackly Logo">
+          </a>
+          <button type="button" class="nav-close" id="nav-close" aria-label="Close menu">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="services.html" class="nav-link">Solutions</a></li>
+          <li><a href="research.html" class="nav-link">Research</a></li>
+          <li><a href="contact.html" class="nav-link active">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn btn-secondary btn-sm" style="border: 1.5px solid var(--primary); padding: 8px 18px;">Login</a>
+          <a href="create-account.html" class="btn btn-primary btn-sm" style="padding: 8px 18px;">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" style="min-height: auto; padding: 60px 0 80px 0;">
+    <canvas id="hero-bg-canvas" class="hero-bg-canvas"></canvas>
+    <div class="container" style="position: relative; z-index: 2; text-align: center;">
+      <span class="section-tag" style="background: rgba(255,255,255,0.1); color: var(--secondary);"><i class="fa-solid fa-envelope"></i> Request Consultation</span>
+      <h1 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.5rem); margin-bottom: 12px;">Connect with an Engineer</h1>
+      <p class="hero-desc" style="margin-inline: auto; font-size: 1.05rem; max-width: 700px;">Connect with our design office to specify membrane modules, sensor layouts, and flow metrics.</p>
+    </div>
+  </section>
+
+  <!-- Main Contact Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid reveal">
+        <!-- Info Column -->
+        <div class="contact-info-panel">
+          <div class="contact-info-top">
+            <h3>Start Your Water Transition</h3>
+            <p>Connect with a systems architect to map your wastewater recycling blueprint today.</p>
+            
+            <div class="contact-details">
+              <div class="contact-detail-item">
+                <div class="contact-detail-icon"><i class="fa-solid fa-phone"></i></div>
+                <div class="contact-detail-text">
+                  <h5>Call Us</h5>
+                  <p>+91 80 4567 8900</p>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <div class="contact-detail-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div class="contact-detail-text">
+                  <h5>Email Support</h5>
+                  <p>architects@hydroflow.tech</p>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <div class="contact-detail-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="contact-detail-text">
+                  <h5>Global HQ</h5>
+                  <p>Tech Park II, Bangalore, India</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-socials">
+            <a href="404.html"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="404.html"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+        </div>
+
+        <!-- Form Column -->
+        <div class="contact-form-panel" id="book-visit">
+          <h3>Request System Design</h3>
+          <form id="contact-form">
+            <div class="form-group">
+              <label for="name" class="form-label">Full Name</label>
+              <input type="text" id="name" class="form-control" placeholder="E.g., Rajesh Kumar" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" id="email" class="form-control" placeholder="E.g., rajesh@manufacturing.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="tel" id="phone" class="form-control" placeholder="E.g., +91 98765 43210" required>
+            </div>
+
+            <div class="form-group">
+              <label for="company" class="form-label">Company Name</label>
+              <input type="text" id="company" class="form-control" placeholder="E.g., Apex Manufacturing Corp" required>
+            </div>
+
+            <div class="form-group">
+              <label for="flow" class="form-label">Target Daily Flow Rate</label>
+              <select id="flow" class="form-control">
+                <option value="micro">&lt; 50,000 Liters / day</option>
+                <option value="medium">50,000 - 500,000 Liters / day</option>
+                <option value="macro">&gt; 500,000 Liters / day</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">System Requirements</label>
+              <textarea id="message" class="form-control" placeholder="Briefly detail your industrial process water requirements..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Submit Request</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Google Map Visual Placeholder -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="reveal" style="border-radius: var(--radius-lg); overflow: hidden; height: 350px; border: 1px solid var(--border-color); box-shadow: var(--shadow-md); position: relative;">
+        <!-- Simulated styled map visual background -->
+        <div style="background-color: #091e3a; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; padding: 20px;">
+          <i class="fa-solid fa-map-location-dot" style="font-size: 4rem; color: var(--secondary); margin-bottom: 20px; animation: float 4s ease-in-out infinite;"></i>
+          <h3>Interactive System Operations Map</h3>
+          <p style="color: #94a3b8; max-width: 500px; margin-top: 8px;">Interactive water grid diagnostics mapping active global RO plant sites. Authorized client login required to inspect live telemetry endpoints.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 20px;">
+            <img src="assets/logo.webp" alt="Stackly logo">
+          </a>
+          <p>Engineering sustainable closed-loop filtration grids and dynamic cloud telemetry systems to secure industrial water circularity.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Link</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Solutions Grid</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Office Hours</h4>
+          <div class="footer-hours-list">
+            <div class="footer-hours-row">
+              <span>Mon - Fri</span>
+              <span>09:00 - 18:00</span>
+            </div>
+            <div class="footer-hours-row">
+              <span>Saturday</span>
+              <span>10:00 - 15:00</span>
+            </div>
+            <div class="footer-hours-row">
+              <span>Diagnostics</span>
+              <span>24/7 Connected</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-col footer-newsletter">
+          <h4>Tech Updates</h4>
+          <p>Subscribe to our engineering reports for updates on zero-discharge filtration standards.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your work email..." required>
+            <button type="submit"><i class="fa-solid fa-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Stackly Technologies Private Limited. All Rights Reserved.</p>
+        <div class="footer-social-links">
+          <a href="404.html"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="404.html"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stackly | Advanced Water Technology Solutions</title>
+  <meta name="description" content="Stackly is a global leader in sustainable water technology, offering smart filtration, industrial desalination, wastewater treatment, and IoT grid monitoring.">
+  <link rel="icon" type="image/webp" href="assets/logo.webp">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- Custom Cursor Particle Canvas -->
+  <canvas id="cursor-canvas"></canvas>
+
+  <!-- Preloader Screen (Fluid Drop Ripple) -->
+  <div id="site-preloader" class="site-preloader">
+    <div class="preloader-droplet-wrapper">
+      <div class="preloader-droplet"></div>
+      <div class="preloader-pool"></div>
+      <div class="preloader-ripple"></div>
+    </div>
+    <div class="preloader-logo">Stack<span>ly</span></div>
+    <div class="preloader-bar"><span></span></div>
+  </div>
+
+  <!-- Top Contact/Info Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-info">
+        <span><i class="fa-solid fa-location-dot"></i> Tech Park Phase II, Bangalore, KA - 560066</span>
+        <span><i class="fa-solid fa-phone"></i> +91 80 4567 8900</span>
+        <span><i class="fa-solid fa-clock"></i> Support: 24/7 Telemetry Monitoring</span>
+      </div>
+      <div class="top-bar-links">
+        <a href="404.html" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="404.html" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="404.html" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Responsive Header -->
+  <header class="navbar">
+    <div class="container navbar-bar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/logo.webp" alt="Stackly Logo">
+      </a>
+
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-panel">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="nav-panel" id="nav-panel">
+        <div class="nav-panel-header">
+          <a href="index.html" class="brand-logo">
+            <img src="assets/logo.webp" alt="Stackly Logo">
+          </a>
+          <button type="button" class="nav-close" id="nav-close" aria-label="Close menu">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="services.html" class="nav-link">Solutions</a></li>
+          <li><a href="research.html" class="nav-link">Research</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn btn-secondary btn-sm" style="border: 1.5px solid var(--primary); padding: 8px 18px;">Login</a>
+          <a href="create-account.html" class="btn btn-primary btn-sm" style="padding: 8px 18px;">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Interactive Hero Section -->
+  <section class="hero-section">
+    <!-- Bubble Simulation Background Canvas -->
+    <canvas id="hero-bg-canvas" class="hero-bg-canvas"></canvas>
+    
+    <div class="container hero-grid">
+      <div class="hero-content reveal-left">
+        <div class="hero-badge">
+          <i class="fa-solid fa-droplet"></i> Clean Water for a Smart Future
+        </div>
+        <h1 class="hero-title">Pioneering <span>Sustainable</span> Water Technologies</h1>
+        <p class="hero-desc">Advanced industrial desalination, intelligent IoT grid telemetry, and high-performance reverse osmosis systems built for global enterprises.</p>
+
+        <div class="hero-buttons">
+          <a href="404.html" class="btn btn-primary"><i class="fa-solid fa-gears"></i> Explore Solutions</a>
+          <a href="404.html" class="btn btn-secondary"><i class="fa-solid fa-envelope"></i> Get in Touch</a>
+        </div>
+
+        <div class="hero-features">
+          <div class="hero-feature-item">
+            <i class="fa-solid fa-shield-halved"></i> ISO 9001 Certified
+          </div>
+          <div class="hero-feature-item">
+            <i class="fa-solid fa-bolt"></i> 99.9% Telemetry Uptime
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal-right">
+        <div class="hero-image-wrapper">
+          <img src="assets/hero (3)_11zon.webp" alt="Advanced Water Purification Facility">
+        </div>
+
+        <!-- Floating Metrics Cards -->
+        <div class="floating-card floating-card-1">
+          <div class="floating-icon"><i class="fa-solid fa-award"></i></div>
+          <div class="floating-text">
+            <h5>99.9% Purity</h5>
+            <p>Industry Standard</p>
+          </div>
+        </div>
+
+        <div class="floating-card floating-card-2">
+          <div class="floating-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <div class="floating-text">
+            <h5>IoT Connected</h5>
+            <p>Live Telemetry</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Smooth animated SVG wave divider at bottom -->
+    <div class="wave-divider" aria-hidden="true">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,42.4V0Z" class="shape-fill"></path>
+        <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,105,20.34,35.81,11.5,71.07,23.63,108.77,29.92,57.17,9.53,114.73-1.89,170.83-17.58,42-11.75,81.42-30.83,122.92-42.58C921,5.5,994,18.42,1062,35.35c41.36,10.3,81.56,22.84,123.64,28.61C1191.13,64.73,1196.2,65.07,1200,65.24V0Z" class="shape-fill"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Solutions Grid (Arch layout like veterinary site) -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag"><i class="fa-solid fa-gears"></i> Core Solutions</span>
+        <h2 class="section-title">Engineered to Support Smart Water Infrastructure</h2>
+        <p class="section-desc">Tailored liquid filtration systems and digital infrastructure constructed to drive resource circularity and sustainability.</p>
+      </div>
+
+      <div class="arch-grid">
+        <!-- Arch Card 1 (Normal Arch) -->
+        <div class="arch-card reveal delay-100">
+          <div class="arch-card-icon"><i class="fa-solid fa-water"></i></div>
+          <img src="assets/filtration_11zon.webp" alt="Industrial RO Purification Cylinders" class="arch-card-img">
+          <h3 class="arch-card-title">Industrial Filtration</h3>
+          <p class="arch-card-desc">Advanced multi-membrane Reverse Osmosis systems tailored for industrial wastewater recovery and reuse.</p>
+          <a href="404.html" class="learn-more-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <!-- Arch Card 2 (Inverted Arch) -->
+        <div class="arch-card invert-arch reveal delay-200">
+          <div class="arch-card-icon"><i class="fa-solid fa-laptop-code"></i></div>
+          <img src="assets/dashboard_11zon.webp" alt="Smart IoT Flow Dashboard Visualization" class="arch-card-img">
+          <h3 class="arch-card-title">IoT Telemetry & Grids</h3>
+          <p class="arch-card-desc">Cloud-based telemetry tracking real-time water quality metrics, flow, pressure, and automated diagnostics.</p>
+          <a href="404.html" class="learn-more-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <!-- Arch Card 3 (Normal Arch) -->
+        <div class="arch-card reveal delay-300">
+          <div class="arch-card-icon"><i class="fa-solid fa-flask-vial"></i></div>
+          <img src="assets/lab_11zon.webp" alt="Technician Testing Pure Water Quality" class="arch-card-img">
+          <h3 class="arch-card-title">Laboratory & Testing</h3>
+          <p class="arch-card-desc">Comprehensive analysis labs mapping chemical, biological, and radiological markers to guarantee pure water.</p>
+          <a href="404.html" class="learn-more-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive 4-Stage Filtration Simulator Section -->
+  <section class="section section-dark">
+    <!-- Top Animated Wave Divider -->
+    <div class="wave-divider-top" aria-hidden="true">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,42.4V0Z" class="shape-fill"></path>
+      </svg>
+    </div>
+
+    <div class="container" style="padding-top: 40px;">
+      <div class="section-header reveal">
+        <span class="section-tag"><i class="fa-solid fa-bolt"></i> Interactive Tech</span>
+        <h2 class="section-title">How Our Filtration Process Works</h2>
+        <p class="section-desc">Click through the stages of our industrial-grade purification grid to see how we refine raw wastewater into ultra-pure industrial water.</p>
+      </div>
+
+      <!-- Interactive filtration container -->
+      <div class="filtration-container reveal">
+        <!-- Stage buttons (left) -->
+        <div class="filtration-stages">
+          <button class="filtration-stage-btn active" data-stage="1">
+            <div class="filtration-stage-num">01</div>
+            <div class="filtration-stage-title">
+              <h4>Sediment Filtration</h4>
+              <p>Stage One: Macro Filtration</p>
+            </div>
+          </button>
+          <button class="filtration-stage-btn" data-stage="2">
+            <div class="filtration-stage-num">02</div>
+            <div class="filtration-stage-title">
+              <h4>Carbon Absorption</h4>
+              <p>Stage Two: Organic Removal</p>
+            </div>
+          </button>
+          <button class="filtration-stage-btn" data-stage="3">
+            <div class="filtration-stage-num">03</div>
+            <div class="filtration-stage-title">
+              <h4>Reverse Osmosis</h4>
+              <p>Stage Three: Nano Filtration</p>
+            </div>
+          </button>
+          <button class="filtration-stage-btn" data-stage="4">
+            <div class="filtration-stage-num">04</div>
+            <div class="filtration-stage-title">
+              <h4>UV Sterilization</h4>
+              <p>Stage Four: Microbiological Purity</p>
+            </div>
+          </button>
+        </div>
+
+        <!-- Stage details (right) -->
+        <div class="filtration-details">
+          <!-- Card 1 -->
+          <div class="filtration-detail-card active" id="detail-1">
+            <div class="filtration-detail-icon"><i class="fa-solid fa-filter"></i></div>
+            <h3 class="filtration-detail-title">Sediment Filtration</h3>
+            <p class="filtration-detail-desc">Raw intake water is passed through high-density pleated media filters. This process filters out physical particulates including sand, silt, rust, and macro-debris down to 5 microns, protecting downstream membranes.</p>
+            <div class="filtration-flow-diagram">
+              <span class="flow-dot filled"></span>
+              <span class="flow-line"></span>
+              <span class="flow-dot"></span>
+              <span class="flow-line"></span>
+              <span class="flow-dot"></span>
+              <span class="flow-line"></span>
+              <span class="flow-dot"></span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="filtration-detail-card" id="detail-2">
+            <div class="filtration-detail-icon"><i class="fa-solid fa-cube"></i></div>
+            <h3 class="filtration-detail-title">Activated Carbon Absorption</h3>
+            <p class="filtration-detail-desc">Water flows through porous activated carbon blocks that absorb volatile organic compounds (VOCs), chlorine, synthetic chemicals, pesticides, and unpleasant tastes or odors. An essential shield stage for our RO membranes.</p>
+            <div class="filtration-flow-diagram">
+              <span class="flow-dot filled"></span>
+              <span class="flow-line filled"></span>
+              <span class="flow-dot filled"></span>
+              <span class="flow-line"></span>
+              <span class="flow-dot"></span>
+              <span class="flow-line"></span>
+              <span class="flow-dot"></span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="filtration-detail-card" id="detail-3">
+            <div class="filtration-detail-icon"><i class="fa-solid fa-circle-nodes"></i></div>
+            <h3 class="filtration-detail-title">Reverse Osmosis (RO)</h3>
+            <p class="filtration-detail-desc">The core chemical purification phase. Water is pressurized through semi-permeable spiral-wound RO membranes. This nanostructure blocks 99.9% of dissolved salts, heavy metals, microplastics, fluorides, and contaminants down to 0.0001 microns.</p>
+            <div class="filtration-flow-diagram">
+              <span class="flow-dot filled"></span>
+              <span class="flow-line filled"></span>
+              <span class="flow-dot filled"></span>
+              <span class="flow-line filled"></span>
+              <span class="flow-dot filled"></span>
+              <span class="flow-line"></span>
+              <span class="flow-dot"></span>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="filtration-detail-card" id="detail-4">
+            <div class="filtration-detail-icon"><i class="fa-solid fa-sun"></i></div>
+            <h3 class="filtration-detail-title">UV Sterilization</h3>
+            <p class="filtration-detail-desc">In the final sanitation loop, water passes through a chamber emitting high-intensity germicidal UV-C wavelengths (254nm). This destroys the cellular DNA of viruses, bacteria, and cysts, rendering water microbiologically pure without chemicals.</p>
+            <div class="filtration-flow-diagram">
+              <span class="flow-dot filled"></span>
+              <span class="flow-line filled"></span>
+              <span class="flow-dot filled"></span>
+              <span class="flow-line filled"></span>
+              <span class="flow-dot filled"></span>
+              <span class="flow-line filled"></span>
+              <span class="flow-dot filled"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Bar with dynamic count-up -->
+      <div class="stats-bar reveal">
+        <div class="stat-item">
+          <h3 class="count-target" data-value="12000000">0</h3>
+          <p>Liters Daily Flow</p>
+        </div>
+        <div class="stat-item">
+          <h3 class="count-target" data-value="140">0</h3>
+          <p>Enterprise Networks</p>
+        </div>
+        <div class="stat-item">
+          <h3 class="count-target" data-value="99" data-suffix=".9%">0</h3>
+          <p>Purity Standard</p>
+        </div>
+        <div class="stat-item">
+          <h3 class="count-target" data-value="24" data-suffix="/7">0</h3>
+          <p>Telemetry Uptime</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us Split Panel -->
+  <section class="section">
+    <div class="container about-split-grid">
+      <div class="about-split-visual reveal-left">
+        <img src="assets/lab_11zon.webp" alt="HydroFlow Water Lab Facility" class="about-image-main">
+        <img src="assets/filtration_11zon.webp" alt="Membrane cylinders close-up" class="about-image-sub">
+      </div>
+
+      <div class="about-split-content reveal-right">
+        <span class="section-tag"><i class="fa-solid fa-building"></i> About Stackly</span>
+        <h2 class="section-title">Driving Circular Water Resource Recovery</h2>
+        <p class="section-desc">Formed by fluid dynamics specialists and IoT hardware engineers, Stackly bridges the gap between mechanical filtration and cloud-based automation. We design, deploy, and manage modular treatment infrastructure that lets enterprises recycle up to 98% of process water.</p>
+        
+        <ul class="about-bullets">
+          <li><i class="fa-solid fa-circle-check"></i> Advanced Zero-Liquid-Discharge (ZLD) Technology</li>
+          <li><i class="fa-solid fa-circle-check"></i> Live pressure, flow, and chemical sensor monitoring</li>
+          <li><i class="fa-solid fa-circle-check"></i> Carbon-neutral treatment energy profiles</li>
+        </ul>
+
+        <a href="404.html" class="btn btn-primary">Learn More About Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="section bg-light-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag"><i class="fa-solid fa-circle-question"></i> FAQ</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-desc">Key details regarding deployment timelines, smart diagnostic systems, and sustainable water solutions.</p>
+      </div>
+
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <button class="faq-question">
+            What is zero-liquid-discharge (ZLD) filtration?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Zero-Liquid-Discharge (ZLD) is a treatment process designed to limit wastewater discharge entirely. It purifies wastewater, recovers resources, and concentrates solids into a dry crystal mass for safe recovery or disposal, saving up to 98% of process water.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            How does the cloud telemetry dashboard connect?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Every filtration skid we deploy is built with an integrated IoT controller connected to industrial-grade sensors. This telemetry streams real-time pressure differential, TDS (Total Dissolved Solids) count, flow rate, and valve status to our secure AWS dashboard for analytics.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Can these systems scale for industrial manufacturing?
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Absolutely. We build modular containerized treatment solutions capable of filtering anywhere from 10,000 liters to over 5,000,000 liters of intake daily. Module additions can be hot-swapped into existing pipe grids with minimal downtime.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Us Quick Form Section -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid reveal">
+        <!-- Info Column -->
+        <div class="contact-info-panel">
+          <div class="contact-info-top">
+            <h3>Start Your Water Transition</h3>
+            <p>Connect with a systems architect to map your wastewater recycling blueprint today.</p>
+            
+            <div class="contact-details">
+              <div class="contact-detail-item">
+                <div class="contact-detail-icon"><i class="fa-solid fa-phone"></i></div>
+                <div class="contact-detail-text">
+                  <h5>Call Us</h5>
+                  <p>+91 80 4567 8900</p>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <div class="contact-detail-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div class="contact-detail-text">
+                  <h5>Email Support</h5>
+                  <p>architects@hydroflow.tech</p>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <div class="contact-detail-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="contact-detail-text">
+                  <h5>Global HQ</h5>
+                  <p>Tech Park II, Bangalore, India</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-socials">
+            <a href="404.html"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="404.html"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+        </div>
+
+        <!-- Form Column -->
+        <div class="contact-form-panel">
+          <h3>Request Consultation</h3>
+          <form id="contact-form">
+            <div class="form-group">
+              <label for="name" class="form-label">Full Name</label>
+              <input type="text" id="name" class="form-control" placeholder="E.g., Rajesh Kumar" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" id="email" class="form-control" placeholder="E.g., rajesh@manufacturing.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="flow" class="form-label">Target Daily Flow Rate</label>
+              <select id="flow" class="form-control">
+                <option value="micro">&lt; 50,000 Liters / day</option>
+                <option value="medium">50,000 - 500,000 Liters / day</option>
+                <option value="macro">&gt; 500,000 Liters / day</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">System Requirements</label>
+              <textarea id="message" class="form-control" placeholder="Briefly detail your industrial process water requirements..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Submit Request</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 20px;">
+            <img src="assets/logo.webp" alt="Stackly logo">
+          </a>
+          <p>Engineering sustainable closed-loop filtration grids and dynamic cloud telemetry systems to secure industrial water circularity.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Link</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Solutions Grid</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Office Hours</h4>
+          <div class="footer-hours-list">
+            <div class="footer-hours-row">
+              <span>Mon - Fri</span>
+              <span>09:00 - 18:00</span>
+            </div>
+            <div class="footer-hours-row">
+              <span>Saturday</span>
+              <span>10:00 - 15:00</span>
+            </div>
+            <div class="footer-hours-row">
+              <span>Diagnostics</span>
+              <span>24/7 Connected</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-col footer-newsletter">
+          <h4>Tech Updates</h4>
+          <p>Subscribe to our engineering reports for updates on zero-discharge filtration standards.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your work email..." required>
+            <button type="submit"><i class="fa-solid fa-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Stackly Technologies Private Limited. All Rights Reserved.</p>
+        <div class="footer-social-links">
+          <a href="404.html"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="404.html"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

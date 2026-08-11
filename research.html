@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research & Breakthroughs | Stackly Water Technology</title>
+  <meta name="description" content="Explore Stackly's scientific research papers, advanced membrane development, and telemetry breakthroughs driving zero-liquid-discharge (ZLD) technologies.">
+  <link rel="icon" type="image/webp" href="assets/logo.webp">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- Custom Cursor Canvas -->
+  <canvas id="cursor-canvas"></canvas>
+
+  <!-- Preloader Screen -->
+  <div id="site-preloader" class="site-preloader">
+    <div class="preloader-droplet-wrapper">
+      <div class="preloader-droplet"></div>
+      <div class="preloader-pool"></div>
+      <div class="preloader-ripple"></div>
+    </div>
+    <div class="preloader-logo">Stack<span>ly</span></div>
+    <div class="preloader-bar"><span></span></div>
+  </div>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-info">
+        <span><i class="fa-solid fa-location-dot"></i> Tech Park Phase II, Bangalore, KA - 560066</span>
+        <span><i class="fa-solid fa-phone"></i> +91 80 4567 8900</span>
+        <span><i class="fa-solid fa-clock"></i> Support: 24/7 Telemetry Monitoring</span>
+      </div>
+      <div class="top-bar-links">
+        <a href="404.html" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="404.html" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="404.html" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="container navbar-bar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/logo.webp" alt="Stackly Logo">
+      </a>
+
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-panel">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="nav-panel" id="nav-panel">
+        <div class="nav-panel-header">
+          <a href="index.html" class="brand-logo">
+            <img src="assets/logo.webp" alt="Stackly Logo">
+          </a>
+          <button type="button" class="nav-close" id="nav-close" aria-label="Close menu">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="services.html" class="nav-link">Solutions</a></li>
+          <li><a href="research.html" class="nav-link active">Research</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn btn-secondary btn-sm" style="border: 1.5px solid var(--primary); padding: 8px 18px;">Login</a>
+          <a href="create-account.html" class="btn btn-primary btn-sm" style="padding: 8px 18px;">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" style="min-height: auto; padding: 60px 0 80px 0;">
+    <canvas id="hero-bg-canvas" class="hero-bg-canvas"></canvas>
+    <div class="container" style="position: relative; z-index: 2; text-align: center;">
+      <span class="section-tag" style="background: rgba(255,255,255,0.1); color: var(--secondary);"><i class="fa-solid fa-flask-vial"></i> R&D Laboratories</span>
+      <h1 class="hero-title" style="font-size: clamp(2.2rem, 4vw, 3.5rem); margin-bottom: 12px;">Scientific Breakthroughs</h1>
+      <p class="hero-desc" style="margin-inline: auto; font-size: 1.05rem; max-width: 700px;">Pioneering next-generation membranes, smart diagnostics, and thermodynamic models for industrial recycling.</p>
+    </div>
+  </section>
+
+  <!-- Research Grid split -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag"><i class="fa-solid fa-graduation-cap"></i> Main Initiatives</span>
+        <h2 class="section-title">Pushing the Boundaries of Fluid Dynamics</h2>
+        <p class="section-desc">Our design lab bridges the gap between molecular research and macro-scale industrial treatment installations.</p>
+      </div>
+
+      <div class="about-features" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 50px;">
+        <div class="about-feature-card reveal delay-100">
+          <i class="fa-solid fa-atom"></i>
+          <h4>Graphene Membranes</h4>
+          <p>Investigating atomic-thick graphene oxide structures to filter salts at 50% lower hydrostatic pressures than normal RO cells.</p>
+        </div>
+
+        <div class="about-feature-card reveal delay-200">
+          <i class="fa-solid fa-chart-area"></i>
+          <h4>Predictive Analytics</h4>
+          <p>Compiling algorithms to map pressure metrics and forecast calcium carbonate buildup 72 hours before membrane scaling happens.</p>
+        </div>
+
+        <div class="about-feature-card reveal delay-300">
+          <i class="fa-solid fa-temperature-arrow-up"></i>
+          <h4>Thermal Desalination</h4>
+          <p>Refining thermodynamic evaporative crystallizers to capture pure solid residues, completing the Zero-Liquid-Discharge loop.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications Section (Arch card grid style) -->
+  <section class="section section-dark">
+    <div class="wave-divider-top" aria-hidden="true">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,42.4V0Z" class="shape-fill"></path>
+      </svg>
+    </div>
+
+    <div class="container" style="padding-top: 40px;">
+      <div class="section-header reveal">
+        <span class="section-tag"><i class="fa-solid fa-book-open"></i> Publications</span>
+        <h2 class="section-title">Whitepapers & Technical Reports</h2>
+        <p class="section-desc">Download and inspect peer-reviewed engineering analyses generated by Stackly's system research architects.</p>
+      </div>
+
+      <div class="arch-grid">
+        <div class="arch-card reveal delay-100">
+          <div class="arch-card-icon"><i class="fa-solid fa-file-pdf"></i></div>
+          <img src="assets/filtration_11zon.webp" alt="Industrial RO Cylinders" class="arch-card-img">
+          <h3 class="arch-card-title">RO Membrane Scaling</h3>
+          <p class="arch-card-desc">Mapping polymer chemical compositions to withstand organic compound fouling in wastewater reuse environments.</p>
+          <a href="404.html" class="learn-more-link">Download PDF <i class="fa-solid fa-download"></i></a>
+        </div>
+
+        <div class="arch-card invert-arch reveal delay-200">
+          <div class="arch-card-icon"><i class="fa-solid fa-file-invoice"></i></div>
+          <img src="assets/dashboard_11zon.webp" alt="Smart IoT Flow Dashboard" class="arch-card-img">
+          <h3 class="arch-card-title">IoT Telemetry Analytics</h3>
+          <p class="arch-card-desc">Reviewing flow telemetry encryption, local gateway reliability, and sensor calibration metrics.</p>
+          <a href="404.html" class="learn-more-link">Download PDF <i class="fa-solid fa-download"></i></a>
+        </div>
+
+        <div class="arch-card reveal delay-300">
+          <div class="arch-card-icon"><i class="fa-solid fa-chart-simple"></i></div>
+          <img src="assets/lab_11zon.webp" alt="Technician Testing Pure Water" class="arch-card-img">
+          <h3 class="arch-card-title">ZLD Thermodynamic Models</h3>
+          <p class="arch-card-desc">A comprehensive review of carbon energy profiles during zero-liquid-discharge crystallizer cycles.</p>
+          <a href="404.html" class="learn-more-link">Download PDF <i class="fa-solid fa-download"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 20px;">
+            <img src="assets/logo.webp" alt="Stackly logo">
+          </a>
+          <p>Engineering sustainable closed-loop filtration grids and dynamic cloud telemetry systems to secure industrial water circularity.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Link</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Solutions Grid</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Office Hours</h4>
+          <div class="footer-hours-list">
+            <div class="footer-hours-row">
+              <span>Mon - Fri</span>
+              <span>09:00 - 18:00</span>
+            </div>
+            <div class="footer-hours-row">
+              <span>Saturday</span>
+              <span>10:00 - 15:00</span>
+            </div>
+            <div class="footer-hours-row">
+              <span>Diagnostics</span>
+              <span>24/7 Connected</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-col footer-newsletter">
+          <h4>Tech Updates</h4>
+          <p>Subscribe to our engineering reports for updates on zero-discharge filtration standards.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your work email..." required>
+            <button type="submit"><i class="fa-solid fa-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Stackly Technologies Private Limited. All Rights Reserved.</p>
+        <div class="footer-social-links">
+          <a href="404.html"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="404.html"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

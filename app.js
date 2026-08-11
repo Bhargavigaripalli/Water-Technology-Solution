@@ -440,7 +440,7 @@ function initContactForm() {
 
   // Enforce email rules: Gmail format only
   if (emailInput) {
-    emailInput.pattern = "[a-zA-Z0-9._%+-]+@gmail\\.com$";
+    emailInput.pattern = "[a-zA-Z0-9._%+\\-]+@gmail\\.com$";
     emailInput.title = "Please enter a valid Gmail address (e.g. user@gmail.com).";
   }
 
@@ -451,6 +451,15 @@ function initContactForm() {
     phoneInput.title = "Only numbers allowed, maximum 10 digits.";
     phoneInput.addEventListener('input', () => {
       phoneInput.value = phoneInput.value.replace(/[^0-9]/g, '');
+    });
+  }
+
+  const submitBtn = form.querySelector('button[type="submit"]');
+  if (submitBtn) {
+    submitBtn.addEventListener('click', () => {
+      if (!form.checkValidity()) {
+        alert("Please fill in the details");
+      }
     });
   }
 
@@ -507,7 +516,7 @@ function initAuthForms() {
   // Email filtering for signup
   const signupEmail = document.getElementById('signup-email');
   if (signupEmail) {
-    signupEmail.pattern = "[a-zA-Z0-9._%+-]+@gmail\\.com$";
+    signupEmail.pattern = "[a-zA-Z0-9._%+\\-]+@gmail\\.com$";
     signupEmail.title = "Please enter a valid Gmail address (ending in @gmail.com).";
   }
 
@@ -779,7 +788,7 @@ function initNewsletterForm() {
   forms.forEach(form => {
     const emailInput = form.querySelector('input[type="email"]');
     if (emailInput) {
-      emailInput.pattern = "[a-zA-Z0-9._%+-]+@gmail\\.com$";
+      emailInput.pattern = "[a-zA-Z0-9._%+\\-]+@gmail\\.com$";
       emailInput.title = "Please enter a valid Gmail address (ending in @gmail.com).";
     }
 
